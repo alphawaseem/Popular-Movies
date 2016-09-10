@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Popular Movies</string>
+    <string name="settings_title">Setting</string>
+
+    //strings used in settings
+    <string name="order_type_key">order</string>
+    <string name="order_by_title">Order by</string>
+    <string name="order_by_popular">popular</string>
+    <string name="order_by_rating">top_rated</string>
+    <string-array name="order_type_entries">
+        <item>popular</item>
+        <item>top_rated</item>
+    </string-array>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
