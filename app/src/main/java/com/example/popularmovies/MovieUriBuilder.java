@@ -8,15 +8,24 @@ import android.net.Uri;
  */
 public class MovieUriBuilder {
 
+    private static final String TOP_RATED = "top_rated";
+    private static final String POPULAR = "popular";
     private static String mApiKey = ApiKey.getApiKey();
+    private static String mBaseUrl = "http://api.themoviedb.org/3/movie/";
+    private static String mOrderType = POPULAR;
 
-
-    public static Uri getUri(String orderType) {
-        String mBaseUrl = "http://api.themoviedb.org/3/movie/";
-        Uri uri = Uri.parse(mBaseUrl).buildUpon().appendPath(orderType)
+    public static Uri getUri() {
+        return Uri.parse(mBaseUrl).buildUpon().appendPath(mOrderType)
                 .appendQueryParameter("api_key", mApiKey).build();
-        return uri;
+
     }
 
+    public static void setOrderType(String orderType) {
+        if (orderType.equals(TOP_RATED)) {
+            mOrderType = TOP_RATED;
+        } else {
+            mOrderType = POPULAR;
+        }
+    }
 
 }
