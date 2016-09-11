@@ -11,10 +11,10 @@ public class MovieUriBuilder {
     private static final String TOP_RATED = "top_rated";
     private static final String POPULAR = "popular";
     private static String mApiKey = ApiKey.getApiKey();
-    private static String mBaseUrl = "http://api.themoviedb.org/3/movie/";
     private static String mOrderType = POPULAR;
 
     public static Uri getUri() {
+        String mBaseUrl = "http://api.themoviedb.org/3/movie/";
         return Uri.parse(mBaseUrl).buildUpon().appendPath(mOrderType)
                 .appendQueryParameter("api_key", mApiKey).build();
 

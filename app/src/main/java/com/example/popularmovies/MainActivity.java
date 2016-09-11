@@ -1,18 +1,32 @@
 package com.example.popularmovies;
 
+import android.app.LoaderManager;
 import android.content.Intent;
+import android.content.Loader;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Movies>> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String orderBy = sharedPreferences.getString(
+                getString(R.string.order_type_key), getString(R.string.order_by_popular));
+        Bundle bundle = new Bundle();
+        bundle.putString(getString(R.string.order_type_key), orderBy);
+        getLoaderManager().initLoader(0, bundle, this);
+
 
     }
 
@@ -41,5 +55,21 @@ public class MainActivity extends AppCompatActivity {
     private void openSetting() {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public Loader<List<Movies>> onCreateLoader(int i, Bundle bundle) {
+        String orderBy = bundle.getString(getString(R.string.order_type_key), getString(R.string.order_by_popular));
+        return new MoviesDBLoader(this, orderBy);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Movies>> loader, List<Movies> movies) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Movies>> loader) {
+
     }
 }
