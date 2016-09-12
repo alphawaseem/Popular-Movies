@@ -4,12 +4,13 @@ import android.content.AsyncTaskLoader;
 import android.content.Context;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by hajira on 11/9/16.
  */
-public class MoviesDBLoader extends AsyncTaskLoader<List<Movies>> {
+public class MoviesDBLoader extends AsyncTaskLoader<ArrayList<Movies>> {
 
 
     private static final String LOG_TAG = MoviesDBLoader.class.getSimpleName();
@@ -28,11 +29,11 @@ public class MoviesDBLoader extends AsyncTaskLoader<List<Movies>> {
     }
 
     @Override
-    public List<Movies> loadInBackground() {
+    public ArrayList<Movies> loadInBackground() {
 
         String jsonResponse = DownloadMoviesJson();
         if (jsonResponse != null) {
-            // MovieJsonParser.parseJsonResponse(jsonResponse);
+             return MovieJsonParser.parseMoviesJson(jsonResponse);
         }
         return null;
     }

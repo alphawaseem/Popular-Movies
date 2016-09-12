@@ -73,9 +73,10 @@ public class DownloadUtils {
         if (stream != null) {
             InputStreamReader reader = new InputStreamReader(stream);
             BufferedReader bufferedReader = new BufferedReader(reader);
+            String line;
             try {
                 while (true) {
-                    String line = bufferedReader.readLine();
+                    line  = bufferedReader.readLine();
                     if (line == null) {
                         break;
                     }

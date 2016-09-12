@@ -7,13 +7,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Movies>> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Movies>> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +61,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public Loader<List<Movies>> onCreateLoader(int i, Bundle bundle) {
+    public Loader<ArrayList<Movies>> onCreateLoader(int i, Bundle bundle) {
         String orderBy = bundle.getString(getString(R.string.order_type_key), getString(R.string.order_by_popular));
         return new MoviesDBLoader(this, orderBy);
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Movies>> loader, List<Movies> movies) {
-
+    public void onLoadFinished(Loader<ArrayList<Movies>> loader, ArrayList<Movies> movies) {
+        Log.v("    MOVIE :   ",movies.get(0).toString());
     }
 
     @Override
-    public void onLoaderReset(Loader<List<Movies>> loader) {
+    public void onLoaderReset(Loader<ArrayList<Movies>> loader) {
 
     }
 }
