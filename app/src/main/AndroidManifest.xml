@@ -20,7 +20,6 @@
             android:name=".SettingsActivity"
             android:label="@string/settings_title"
             android:parentActivityName=".MainActivity">
-
         </activity>
     </application>
 

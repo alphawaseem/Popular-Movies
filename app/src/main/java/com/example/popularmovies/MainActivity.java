@@ -7,17 +7,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.GridView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Movies>> {
 
+    private MovieAdapter movieAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +67,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Movies>> loader, ArrayList<Movies> movies) {
-        Log.v("    MOVIE :   ",movies.get(0).toString());
+        movieAdapter = new MovieAdapter(getBaseContext(), movies);
+        GridView gridView = (GridView) findViewById(R.id.grid_container);
+        if (gridView != null) {
+            gridView.setAdapter(movieAdapter);
+        }
     }
 
     @Override
