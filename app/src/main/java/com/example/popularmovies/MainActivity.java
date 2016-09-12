@@ -3,15 +3,12 @@ package com.example.popularmovies;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.GridView;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -23,15 +20,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String orderBy = sharedPreferences.getString(
-                getString(R.string.order_type_key), getString(R.string.order_by_popular));
-        Bundle bundle = new Bundle();
-        bundle.putString(getString(R.string.order_type_key), orderBy);
-        getLoaderManager().initLoader(0, bundle, this);
-
-        ImageView imageView = new ImageView(this);
-
+        getLoaderManager().initLoader(0, null, this);
 
     }
 
@@ -64,8 +53,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<ArrayList<Movies>> onCreateLoader(int i, Bundle bundle) {
-        String orderBy = bundle.getString(getString(R.string.order_type_key), getString(R.string.order_by_popular));
-        return new MoviesDBLoader(this, orderBy);
+        return new MoviesDBLoader(this);
     }
 
     @Override
