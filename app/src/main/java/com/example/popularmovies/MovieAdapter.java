@@ -17,24 +17,28 @@ import java.util.ArrayList;
  */
 public class MovieAdapter extends ArrayAdapter<Movies> {
 
+    private final Picasso imageLoader;
+    Context mContext;
+
     public MovieAdapter(Context context, ArrayList<Movies> movies) {
         super(context, 0, movies);
+        mContext = context;
+        imageLoader = Picasso.with(context);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View gridView = convertView;
-        if (gridView == null) {
-            gridView = LayoutInflater.from(getContext()).inflate(R.layout.movie_grid_view, parent, false);
+
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.movie_grid_view, parent, false);
         }
 
         Movies movie = getItem(position);
-        ImageView imageView = (ImageView) gridView.findViewById(R.id.movie_poster);
-        Picasso.with(getContext()).load(movie.getPosterUrl()).error(R.mipmap.ic_launcher).into(imageView);
-
-        TextView textView = (TextView) gridView.findViewById(R.id.movie_title);
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.movie_poster);
+        imageLoader.load(movie.getPosterUrl()).error(R.mipmap.ic_launcher).into(imageView);
+        TextView textView = (TextView) convertView.findViewById(R.id.movie_title);
         textView.setText(movie.getTitle());
-        return gridView;
+        return convertView;
 
     }
 }

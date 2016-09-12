@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         setContentView(R.layout.activity_main);
         getLoaderManager().initLoader(0, null, this);
-
     }
 
     @Override
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Movies>> loader, ArrayList<Movies> movies) {
-        movieAdapter = new MovieAdapter(this, movies);
+        movieAdapter = new MovieAdapter(MainActivity.this, movies);
         GridView gridView = (GridView) findViewById(R.id.gridview);
         if (gridView != null) {
             gridView.setAdapter(movieAdapter);
