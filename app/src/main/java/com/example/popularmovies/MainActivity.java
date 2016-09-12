@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.order_type_key), orderBy);
         getLoaderManager().initLoader(0, bundle, this);
+
+        ImageView imageView = new ImageView(this);
 
 
     }
@@ -67,8 +70,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Movies>> loader, ArrayList<Movies> movies) {
-        movieAdapter = new MovieAdapter(getBaseContext(), movies);
-        GridView gridView = (GridView) findViewById(R.id.grid_container);
+        movieAdapter = new MovieAdapter(this, movies);
+        GridView gridView = (GridView) findViewById(R.id.gridview);
         if (gridView != null) {
             gridView.setAdapter(movieAdapter);
         }

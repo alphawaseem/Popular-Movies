@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -29,7 +30,10 @@ public class MovieAdapter extends ArrayAdapter<Movies> {
 
         Movies movie = getItem(position);
         ImageView imageView = (ImageView) gridView.findViewById(R.id.movie_poster);
-        Picasso.with(getContext()).load(movie.getPosterUrl()).into(imageView);
+        Picasso.with(getContext()).load(movie.getPosterUrl()).error(R.mipmap.ic_launcher).into(imageView);
+
+        TextView textView = (TextView) gridView.findViewById(R.id.movie_title);
+        textView.setText(movie.getTitle());
         return gridView;
 
     }
