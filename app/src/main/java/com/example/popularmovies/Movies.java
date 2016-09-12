@@ -2,20 +2,18 @@ package com.example.popularmovies;
 
 import android.net.Uri;
 
-import java.net.URI;
-
 /**
  * Created by hajira on 11/9/16.
  */
 public class Movies {
 
+    private final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
     private String mPosterUrl ;
     private String mOverview ;
     private String mReleaseDate ;
     private String mOriginalTitle ;
     private String mTitle ;
     private String mVoteAverage ;
-    private final String POSTER_BASE_URL =" http://image.tmdb.org/t/p/w185" ;
 
     public Movies(String posterPath , String overview , String date , String orginalTitle , String title , String votes) {
 
@@ -32,22 +30,6 @@ public class Movies {
         mPosterUrl = posterUri.toString();
     }
 
-    private void setOverview(String overview) {
-        mOverview = overview;
-    }
-
-    private void setReleaseDate(String date) {
-        mReleaseDate = date ;
-    }
-
-    private void setOriginalTitle(String title) {
-        mOriginalTitle = title ;
-    }
-
-    private void setTitle(String title) {
-        mTitle = title ;
-    }
-
     private void setVoteAverage(String voteCount) {
         mVoteAverage  = voteCount;
     }
@@ -60,16 +42,32 @@ public class Movies {
         return mReleaseDate ;
     }
 
+    private void setReleaseDate(String date) {
+        mReleaseDate = date;
+    }
+
     public String getOverview(){
         return mOverview;
+    }
+
+    private void setOverview(String overview) {
+        mOverview = overview;
     }
 
     public String getOriginalTitle(){
         return mOriginalTitle;
     }
 
+    private void setOriginalTitle(String title) {
+        mOriginalTitle = title;
+    }
+
     public String getTitle(){
         return mTitle;
+    }
+
+    private void setTitle(String title) {
+        mTitle = title;
     }
 
     public String getVoteCount(){

@@ -1,26 +1,46 @@
 package com.example.popularmovies;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Movies>> {
 
     private MovieAdapter movieAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        getLoaderManager().initLoader(0, null, this);
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            getLoaderManager().initLoader(0, null, this);
+        } else {
+            ProgressBar pBar = (ProgressBar) findViewById(R.id.progress_bar);
+            pBar.setVisibility(View.GONE);
+            TextView textView = (TextView) findViewById(R.id.empty_text);
+            textView.setText(getText(R.string.no_internet));
+
+        }
+
+
     }
 
     @Override
@@ -57,15 +77,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<ArrayList<Movies>> loader, ArrayList<Movies> movies) {
-        movieAdapter = new MovieAdapter(MainActivity.this, movies);
+
+        ProgressBar pBar = (ProgressBar) findViewById(R.id.progress_bar);
+        pBar.setVisibility(View.GONE);
         GridView gridView = (GridView) findViewById(R.id.gridview);
-        if (gridView != null) {
+        if (movies != null) {
+            movieAdapter = new MovieAdapter(MainActivity.this, movies);
             gridView.setAdapter(movieAdapter);
+        } else {
+            TextView textView = (TextView) findViewById(R.id.empty_text);
+            textView.setText(getText(R.string.empty_text));
+            gridView.setEmptyView(textView);
+
         }
     }
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Movies>> loader) {
-
+        if (movieAdapter != null) {
+            movieAdapter.clear();
+        }
     }
 }
