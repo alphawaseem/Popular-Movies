@@ -12,9 +12,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -84,10 +86,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (movies != null) {
             movieAdapter = new MovieAdapter(MainActivity.this, movies);
             gridView.setAdapter(movieAdapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Movies movie = (Movies) parent.getItemAtPosition(position);
+                    Toast.makeText(getBaseContext(), movie.toString(), Toast.LENGTH_LONG).show();
+                }
+            });
         } else {
             TextView textView = (TextView) findViewById(R.id.empty_text);
             textView.setText(getText(R.string.empty_text));
             gridView.setEmptyView(textView);
+
 
         }
     }
@@ -98,4 +108,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             movieAdapter.clear();
         }
     }
+
 }
