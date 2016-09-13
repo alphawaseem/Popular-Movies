@@ -16,14 +16,14 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Movies>> {
 
+    public static final String MOVIE = "Movie";
     private MovieAdapter movieAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +90,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Movies movie = (Movies) parent.getItemAtPosition(position);
-                    Toast.makeText(getBaseContext(), movie.toString(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getBaseContext(), movie.toString(), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
+                    intent.putExtra(MOVIE, movie);
+                    startActivity(intent);
                 }
             });
         } else {
