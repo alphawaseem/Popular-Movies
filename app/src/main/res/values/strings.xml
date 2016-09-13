@@ -5,8 +5,8 @@
     //strings used in settings
     <string name="order_type_key">order</string>
     <string name="order_by_title">Order by</string>
-    <string name="order_by_popular">Popularity</string>
-    <string name="order_by_rating">Rating</string>
+    <string name="order_by_popular">popular</string>
+    <string name="order_by_rating">top_rating</string>
     <string-array name="order_type_entries">
         <item>popular</item>
         <item>top_rated</item>
