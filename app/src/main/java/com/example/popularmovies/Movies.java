@@ -1,12 +1,25 @@
 package com.example.popularmovies;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by hajira on 11/9/16.
  */
-public class Movies {
+public class Movies implements Parcelable {
 
+    public static final Parcelable.Creator<Movies> CREATOR = new Parcelable.Creator<Movies>() {
+        @Override
+        public Movies createFromParcel(Parcel source) {
+            return new Movies(source);
+        }
+
+        @Override
+        public Movies[] newArray(int size) {
+            return new Movies[size];
+        }
+    };
     private final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
     private String mPosterUrl ;
     private String mOverview ;
@@ -23,6 +36,15 @@ public class Movies {
         setOriginalTitle(orginalTitle);
         setTitle(title);
         setVoteAverage(votes);
+    }
+
+    private Movies(Parcel input) {
+        mPosterUrl = input.readString();
+        mOverview = input.readString();
+        mReleaseDate = input.readString();
+        mOriginalTitle = input.readString();
+        mTitle = input.readString();
+        mVoteAverage = input.readString();
     }
 
     private void setPosterPath( String posterPath ) {
@@ -78,5 +100,20 @@ public class Movies {
     public String toString() {
         return "Movie : " + getTitle() + "\n" +
                 "Release Date : " + getReleaseDate() + "\n" ;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mPosterUrl);
+        dest.writeString(mOverview);
+        dest.writeString(mReleaseDate);
+        dest.writeString(mOriginalTitle);
+        dest.writeString(mTitle);
+        dest.writeString(mVoteAverage);
     }
 }
