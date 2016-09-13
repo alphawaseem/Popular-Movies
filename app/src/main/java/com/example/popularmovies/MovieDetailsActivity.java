@@ -19,6 +19,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Movies movie = intent.getParcelableExtra(MainActivity.MOVIE);
         ImageView imageView = (ImageView) findViewById(R.id.detail_movie_poster);
-        Picasso.with(this).load(movie.getPosterUrl()).into(imageView);
+        Picasso.with(this).load(movie.getPosterUrl()).fit().into(imageView);
     }
 }
