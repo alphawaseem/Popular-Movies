@@ -7,9 +7,13 @@
     <string name="order_by_title">Order by</string>
     <string name="order_by_popular">popular</string>
     <string name="order_by_rating">top_rating</string>
-    <string-array name="order_type_entries">
+    <string-array name="order_type_values">
         <item>popular</item>
         <item>top_rated</item>
+    </string-array>
+    <string-array name="order_type_entries">
+        <item>Popularity</item>
+        <item>Top Ratings</item>
     </string-array>
 
     <string name="empty_text">No movies found</string>

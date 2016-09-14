@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Movies movie = (Movies) parent.getItemAtPosition(position);
-                    //Toast.makeText(getBaseContext(), movie.toString(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
                     intent.putExtra(MOVIE, movie);
                     startActivity(intent);
@@ -100,8 +99,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             TextView textView = (TextView) findViewById(R.id.empty_text);
             textView.setText(getText(R.string.empty_text));
             gridView.setEmptyView(textView);
-
-
         }
     }
 
