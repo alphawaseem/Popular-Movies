@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 /**
- * Created by peace on 13/9/16.
+ * Created by waseem on 13/9/16.
  */
 public class MovieDetailsActivity extends AppCompatActivity {
 
@@ -20,7 +20,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Movies movie = intent.getParcelableExtra(MainActivity.MOVIE);
 
-
+        //find views of movie_detail
         ImageView imageView = (ImageView) findViewById(R.id.detail_movie_poster);
         TextView titleView = (TextView) findViewById(R.id.title_field);
         TextView originalView = (TextView) findViewById(R.id.original_title_field);
@@ -28,14 +28,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
         TextView voteView = (TextView) findViewById(R.id.votes_field);
         TextView overviewField = (TextView) findViewById(R.id.overview_field);
 
+        //set the views value
         Picasso.with(this).load(movie.getPosterUrl()).fit().into(imageView);
-
         titleView.setText(movie.getTitle());
         originalView.setText(movie.getOriginalTitle());
         releaseDateView.setText(movie.getReleaseDate());
         voteView.setText(movie.getVoteCount());
         overviewField.setText(movie.getOverview());
-
-
     }
 }

@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Created by hajira on 12/9/16.
+ * Created by waseem on 12/9/16.
  */
 public class MovieAdapter extends ArrayAdapter<Movies> {
 
@@ -32,10 +32,10 @@ public class MovieAdapter extends ArrayAdapter<Movies> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.movie_grid_view, parent, false);
         }
 
-        Movies movie = getItem(position);
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.movie_poster);
-        imageLoader.load(movie.getPosterUrl()).error(R.mipmap.ic_launcher).into(imageView);
-        return convertView;
+        Movies movie = getItem(position); //get the movie at position
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.movie_poster); //find view
+        imageLoader.load(movie.getPosterUrl()).into(imageView); // load image into that view
+        return convertView; //
 
     }
 }

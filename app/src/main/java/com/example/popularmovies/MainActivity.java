@@ -29,20 +29,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // this test is copied from earthquake git repo of udacity's
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        //if phone is connected to internet then load the movies using MovieDBLoader
         if (networkInfo != null && networkInfo.isConnected()) {
             getLoaderManager().initLoader(0, null, this);
-        } else {
+        } else { // if no internet the stop progress bar and tell user that there is no internet
             ProgressBar pBar = (ProgressBar) findViewById(R.id.progress_bar);
             pBar.setVisibility(View.GONE);
             TextView textView = (TextView) findViewById(R.id.empty_text);
             textView.setText(getText(R.string.no_internet));
 
         }
-
-
     }
 
     @Override
@@ -80,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<ArrayList<Movies>> loader, ArrayList<Movies> movies) {
 
+        //after downloading is finished stop the progress bar and show list of movies
+        // or if no movies are found then set the adapter's empty state
         ProgressBar pBar = (ProgressBar) findViewById(R.id.progress_bar);
         pBar.setVisibility(View.GONE);
         GridView gridView = (GridView) findViewById(R.id.gridview);
