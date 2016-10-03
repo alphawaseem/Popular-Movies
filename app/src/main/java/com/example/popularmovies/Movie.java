@@ -15,26 +15,6 @@ import java.util.List;
 
 public class Movie implements Parcelable {
 
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
-        @Override
-        public Movie createFromParcel(Parcel source) {
-            return new Movie(source);
-        }
-
-        @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
-        }
-    };
-
-
-    private void setPosterPath(String posterPath) {
-        Uri posterUri = Uri.parse(POSTER_BASE_URL).buildUpon().appendEncodedPath(posterPath).build();
-        posterPath = posterUri.toString();
-    }
-
-    private final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
-
     @SerializedName("poster_path")
     private String posterPath;
     @SerializedName("adult")
@@ -63,6 +43,26 @@ public class Movie implements Parcelable {
     private Boolean video;
     @SerializedName("vote_average")
     private String voteAverage;
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+
+
+    private void setPosterPath(String posterPath) {
+        String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
+        Uri posterUri = Uri.parse(POSTER_BASE_URL).buildUpon().appendEncodedPath(posterPath).build();
+        posterPath = posterUri.toString();
+    }
+
 
     public Movie(String posterPath, boolean adult, String overview, String releaseDate, List<Integer> genreIds, Integer id,
                  String originalTitle, String originalLanguage, String title, String backdropPath, Double popularity,
