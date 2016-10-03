@@ -24,4 +24,6 @@
     <string name="release_date">Release Date</string>
     <string name="average_votes">Average Votes</string>
     <string name="overview_label">Overview</string>
+
+    <string name="action_add_fav">Add to favourite</string>
 </resources>

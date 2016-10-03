@@ -57,17 +57,11 @@ public class Movie implements Parcelable {
     };
 
 
-    private void setPosterPath(String posterPath) {
-        String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
-        Uri posterUri = Uri.parse(POSTER_BASE_URL).buildUpon().appendEncodedPath(posterPath).build();
-        posterPath = posterUri.toString();
-    }
-
 
     public Movie(String posterPath, boolean adult, String overview, String releaseDate, List<Integer> genreIds, Integer id,
                  String originalTitle, String originalLanguage, String title, String backdropPath, Double popularity,
                  Integer voteCount, Boolean video, String voteAverage) {
-        setPosterPath(posterPath);
+        this.posterPath = posterPath;
         this.adult = adult;
         this.overview = overview;
         this.releaseDate = releaseDate;
@@ -107,6 +101,10 @@ public class Movie implements Parcelable {
         dest.writeString(originalTitle);
         dest.writeString(title);
         dest.writeString(voteAverage);
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath=posterPath;
     }
 
     public String getPosterPath() {
