@@ -19,25 +19,9 @@ import java.util.List;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
 
+    Picasso imageLoader;
     private List<Movie> movies;
     private Context context;
-    Picasso imageLoader ;
-
-    public static class MovieViewHolder extends RecyclerView.ViewHolder {
-        ImageView poster;
-        TextView movieTitle ;
-        TextView voteCount ;
-        ImageView overflow ;
-
-
-        public MovieViewHolder(View v) {
-            super(v);
-            poster =(ImageView) v.findViewById(R.id.thumbnail);
-            movieTitle = (TextView) v.findViewById(R.id.movie_title) ;
-            voteCount = (TextView) v.findViewById(R.id.vote_count);
-            overflow = (ImageView) v.findViewById(R.id.star);
-        }
-    }
 
     public MoviesAdapter(List<Movie> movies, Context context) {
         this.movies = movies;
@@ -58,10 +42,34 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         imageLoader.load("http://image.tmdb.org/t/p/w185/"+currentMovie.getPosterPath()).fit().into(holder.poster);
         holder.movieTitle.setText(currentMovie.getOriginalTitle());
         holder.voteCount.setText(currentMovie.getVoteAverage());
+
+        holder.overflow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView star = (ImageView) v;
+                star.setImageResource(R.drawable.gold_star);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return movies.size();
+    }
+
+    public static class MovieViewHolder extends RecyclerView.ViewHolder {
+        ImageView poster;
+        TextView movieTitle;
+        TextView voteCount;
+        ImageView overflow;
+
+
+        public MovieViewHolder(View v) {
+            super(v);
+            poster = (ImageView) v.findViewById(R.id.thumbnail);
+            movieTitle = (TextView) v.findViewById(R.id.movie_title);
+            voteCount = (TextView) v.findViewById(R.id.vote_count);
+            overflow = (ImageView) v.findViewById(R.id.star);
+        }
     }
 }
