@@ -26,4 +26,7 @@
     <string name="overview_label">Overview</string>
 
     <string name="action_add_fav">Add to favourite</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
