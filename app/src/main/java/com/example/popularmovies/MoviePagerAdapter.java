@@ -22,7 +22,7 @@ public class MoviePagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         if (position == 0)
             return PopularFragment.newInstance();
-        return PopularFragment.newInstance();
+        return TopRatedFragment.newInstance();
     }
 
     @Override

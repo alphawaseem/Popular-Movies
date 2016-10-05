@@ -1,6 +1,7 @@
 package com.example.popularmovies;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -43,7 +44,11 @@ public class PopularFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.recycle_view, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        int span = 2;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            span = 3;
+        }
+        mLayoutManager = new GridLayoutManager(getActivity(), span);
         recyclerView.setLayoutManager(mLayoutManager);
 
         RetrofitApiInterface apiService =
