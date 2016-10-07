@@ -18,7 +18,7 @@
 
     <string name="empty_text">No movies found</string>
     <string name="no_internet">No Internet Connection</string>
-
+    <string name="no_trailer">No trailers found</string>
     <string name="title_label">Movie Title</string>
     <string name="original_title_label">Original Title</string>
     <string name="release_date">Release Date</string>
