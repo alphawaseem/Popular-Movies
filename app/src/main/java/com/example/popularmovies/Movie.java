@@ -1,6 +1,5 @@
 package com.example.popularmovies;
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -15,6 +14,17 @@ import java.util.List;
 
 public class Movie implements Parcelable {
 
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
     @SerializedName("poster_path")
     private String posterPath;
     @SerializedName("adult")
@@ -43,18 +53,6 @@ public class Movie implements Parcelable {
     private Boolean video;
     @SerializedName("vote_average")
     private String voteAverage;
-
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
-        @Override
-        public Movie createFromParcel(Parcel source) {
-            return new Movie(source);
-        }
-
-        @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
-        }
-    };
 
 
 
@@ -85,6 +83,7 @@ public class Movie implements Parcelable {
         originalTitle = input.readString();
         title = input.readString();
         voteAverage = input.readString();
+        id = input.readInt();
 
     }
     @Override
@@ -101,16 +100,16 @@ public class Movie implements Parcelable {
         dest.writeString(originalTitle);
         dest.writeString(title);
         dest.writeString(voteAverage);
-    }
-
-    public void setPosterPath(String posterPath) {
-        this.posterPath=posterPath;
+        dest.writeInt(id);
     }
 
     public String getPosterPath() {
         return posterPath;
     }
 
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
 
     public boolean isAdult() {
         return adult;

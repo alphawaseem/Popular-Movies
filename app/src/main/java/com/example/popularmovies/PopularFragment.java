@@ -26,7 +26,7 @@ public class PopularFragment extends Fragment {
 
     final static String TAG = PopularFragment.class.getSimpleName();
     // TODO - insert your themoviedb.org API KEY here
-    private final static String API_KEY = ApiKey.getApiKey();
+    final static String API_KEY = ApiKey.getApiKey();
     RecyclerView.LayoutManager mLayoutManager;
     MoviesAdapter adapter;
     RecyclerView recyclerView;
