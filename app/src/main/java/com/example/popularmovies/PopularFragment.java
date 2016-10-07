@@ -1,6 +1,7 @@
 package com.example.popularmovies;
 
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -63,6 +64,14 @@ public class PopularFragment extends Fragment {
                 //recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                 recyclerView.setAdapter(adapter);
+                recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent intent = new Intent(getActivity(), DetailActivity.class);
+                        intent.putExtra("MOVIE", movieList.get(position));
+                        startActivity(intent);
+                    }
+                }));
             }
 
             @Override
