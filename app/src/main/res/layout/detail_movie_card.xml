@@ -27,7 +27,7 @@
                 tools:src="@mipmap/ic_launcher" />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/detail_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -35,29 +35,61 @@
                 android:layout_toRightOf="@+id/detail_poster"
                 android:padding="3dp"
                 android:text="TextView"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 tools:text="Captain America : Civil War" />
 
-            <ImageView
-                android:id="@+id/detail_star"
+            <GridLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/title"
-                tools:src="@android:drawable/btn_star_big_on" />
+                android:layout_below="@+id/detail_title"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/detail_poster"
+                android:layout_toRightOf="@+id/detail_poster"
+                android:columnCount="2"
+                android:rowCount="2">
 
-            <TextView
+                <ImageView
+                    android:id="@+id/detail_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:src="@drawable/gold_star" />
+
+                <TextView
                 android:id="@+id/detail_vote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/detail_star"
-                android:layout_marginEnd="14dp"
-                android:layout_marginRight="14dp"
-                android:layout_toLeftOf="@+id/detail_star"
-                android:layout_toStartOf="@+id/detail_star"
+                    android:padding="3dp"
                 android:textSize="16sp"
                 tools:text="8.7" />
+
+                <ImageView
+                    android:id="@+id/cal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_calender" />
+
+                <TextView
+                    android:id="@+id/release_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    tools:text="24-10-2010" />
+            </GridLayout>
+
+            <TextView
+                android:id="@+id/overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/detail_poster"
+                android:text="TextView" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
