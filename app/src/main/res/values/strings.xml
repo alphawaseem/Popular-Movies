@@ -16,7 +16,7 @@
         <item>Top Ratings</item>
     </string-array>
 
-    <string name="empty_text">No movies found</string>
+    <string name="no_movies">No movies found</string>
     <string name="no_internet">No Internet Connection</string>
     <string name="no_trailer">No trailers found</string>
     <string name="title_label">Movie Title</string>
