@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -51,12 +52,21 @@ public class PopularFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.recycle_view, container, false);
+
         if (!isNetworkAvailable(getContext())) {
             ProgressBar progressBar = ButterKnife.findById(rootView, R.id.progress_bar);
             progressBar.setVisibility(View.INVISIBLE);
             TextView failed = ButterKnife.findById(rootView, R.id.failed_msg);
             failed.setText(R.string.no_internet);
 
+            Snackbar snackbar = Snackbar.make(rootView, "No internet connection!", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("RETRY", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            (getActivity()).recreate();
+                        }
+                    });
+            snackbar.show();
 
         } else {
             recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
