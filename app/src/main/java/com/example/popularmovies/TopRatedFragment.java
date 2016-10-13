@@ -4,6 +4,7 @@ package com.example.popularmovies;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -56,6 +57,16 @@ public class TopRatedFragment extends Fragment {
             progressBar.setVisibility(View.INVISIBLE);
             TextView failed = ButterKnife.findById(rootView, R.id.failed_msg);
             failed.setText(R.string.no_internet);
+
+            Snackbar snackbar = Snackbar.make(rootView, "No internet connection!", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("RETRY", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            (getActivity()).recreate();
+                        }
+                    });
+            snackbar.show();
+
         } else {
 
             recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);

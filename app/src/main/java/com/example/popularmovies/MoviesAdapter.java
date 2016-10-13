@@ -42,14 +42,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         imageLoader.load("http://image.tmdb.org/t/p/w185/"+currentMovie.getPosterPath()).fit().into(holder.poster);
         holder.movieTitle.setText(currentMovie.getOriginalTitle());
         holder.voteCount.setText(currentMovie.getVoteAverage());
-
-        holder.overflow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageView star = (ImageView) v;
-                star.setImageResource(R.drawable.gold_star);
-            }
-        });
     }
 
     @Override
