@@ -49,7 +49,7 @@ public class DetailFragment extends Fragment {
         RetrofitApiInterface apiService =
                 RetrofitApiClient.getClient().create(RetrofitApiInterface.class);
 
-        Call<VideosResponse> call = apiService.getMovieVidz(movie.getId(), PopularFragment.API_KEY);
+        Call<VideosResponse> call = apiService.getMovieVidz(movie.getId(), ApiKey.getApiKey());
         call.enqueue(new Callback<VideosResponse>() {
             @Override
             public void onResponse(Call<VideosResponse> call, Response<VideosResponse> response) {
