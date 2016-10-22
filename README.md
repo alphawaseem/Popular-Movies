@@ -6,4 +6,4 @@ User can select order type in settings menu.
 
 
 
-note: use your api key in MovieUriBuilder.class by hardcoding your api to member variable mApiKey on Line 22.
+note: use your own api key wherever appropriate.
