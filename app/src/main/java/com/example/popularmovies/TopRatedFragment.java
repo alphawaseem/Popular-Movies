@@ -7,9 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,6 +15,7 @@ import retrofit2.Response;
 import static com.example.popularmovies.MyUtils.hideProgressBar;
 import static com.example.popularmovies.MyUtils.isNetworkAvailable;
 import static com.example.popularmovies.MyUtils.showMoviesInRecyclerView;
+import static com.example.popularmovies.MyUtils.showNoInternetMessage;
 import static com.example.popularmovies.MyUtils.showNoMoviesFoundMessage;
 
 /**
@@ -46,8 +45,8 @@ public class TopRatedFragment extends Fragment {
         if (!isNetworkAvailable(getContext())) {
 
             hideProgressBar(rootView, R.id.progress_bar);
-            TextView failed = ButterKnife.findById(rootView, R.id.failed_msg);
-            failed.setText(R.string.no_internet);
+            showNoInternetMessage(rootView);
+
         } else {
             RetrofitApiInterface apiService =
                     RetrofitApiClient.getClient().create(RetrofitApiInterface.class);
