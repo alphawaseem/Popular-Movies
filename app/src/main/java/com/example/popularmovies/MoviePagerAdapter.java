@@ -5,15 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-/**
- * Created by peace on 5/10/16.
- */
 
-public class MoviePagerAdapter extends FragmentStatePagerAdapter {
+class MoviePagerAdapter extends FragmentStatePagerAdapter {
 
-    Context context;
+    private Context context;
 
-    public MoviePagerAdapter(Context context, FragmentManager fm) {
+    MoviePagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         this.context = context;
     }
@@ -22,7 +19,9 @@ public class MoviePagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         if (position == 0)
             return PopularFragment.newInstance();
-        return TopRatedFragment.newInstance();
+        else if (position == 1)
+            return TopRatedFragment.newInstance();
+        return FavFragment.newInstance();
     }
 
     @Override
@@ -40,6 +39,8 @@ public class MoviePagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 title = "Top Rated";
                 break;
+            case 2:
+                title = "My Favourite";
         }
         return title;
     }

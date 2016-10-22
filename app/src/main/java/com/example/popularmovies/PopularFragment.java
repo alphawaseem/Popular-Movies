@@ -1,10 +1,8 @@
 package com.example.popularmovies;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -25,6 +23,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.popularmovies.MyUtils.isNetworkAvailable;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -43,9 +43,7 @@ public class PopularFragment extends Fragment {
         return fragment;
     }
 
-    static public boolean isNetworkAvailable(final Context context) {
-        return ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null;
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +57,7 @@ public class PopularFragment extends Fragment {
             TextView failed = ButterKnife.findById(rootView, R.id.failed_msg);
             failed.setText(R.string.no_internet);
 
-            Snackbar snackbar = Snackbar.make(rootView, "No internet connection!", Snackbar.LENGTH_INDEFINITE)
+            Snackbar snackbar = Snackbar.make(container, "No internet connection!", Snackbar.LENGTH_INDEFINITE)
                     .setAction("RETRY", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
