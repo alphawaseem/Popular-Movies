@@ -57,7 +57,7 @@ public class TopRatedFragment extends Fragment {
                 public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
 
                     hideProgressBar(rootView, R.id.progress_bar);
-                    showMoviesInRecyclerView(rootView, response.body().getResults());
+                    showMoviesInRecyclerView(rootView, response.body().getResults(), getActivity().getSupportFragmentManager());
                 }
 
                 @Override

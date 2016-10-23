@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportFragmentManager().beginTransaction().add(android.R.id.content, MoviesListFragment.newInstance()).commit();
+        setContentView(R.layout.main_view);
     }
 
 }

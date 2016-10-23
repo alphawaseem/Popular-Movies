@@ -3,6 +3,7 @@ package com.example.popularmovies;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +32,7 @@ class MyUtils {
         }
     }
 
-    static void showMoviesInRecyclerView(View view, final List<Movie> movieList) {
+    static void showMoviesInRecyclerView(View view, final List<Movie> movieList, final FragmentManager fragmentManager) {
 
         RecyclerView.LayoutManager mLayoutManager;
         MoviesAdapter adapter;
@@ -45,9 +46,16 @@ class MyUtils {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(view.getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(view.getContext(), DetailActivity.class);
-                intent.putExtra("MOVIE", movieList.get(position));
-                view.getContext().startActivity(intent);
+
+                View detailFragment = ButterKnife.findById(view, R.id.detail_fragment_container);
+                if (detailFragment != null) {
+
+                    fragmentManager.beginTransaction().replace(R.id.detail_fragment_container, DetailFragment.newInstance()).commit();
+                } else {
+                    Intent intent = new Intent(view.getContext(), DetailActivity.class);
+                    intent.putExtra("MOVIE", movieList.get(position));
+                    view.getContext().startActivity(intent);
+                }
             }
         }));
     }
