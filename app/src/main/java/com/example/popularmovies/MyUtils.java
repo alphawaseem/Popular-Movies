@@ -47,10 +47,10 @@ class MyUtils {
             @Override
             public void onItemClick(View view, int position) {
 
-                View detailFragment = ButterKnife.findById(view, R.id.detail_fragment_container);
+                View detailFragment = ButterKnife.findById(view.getRootView(), R.id.detail_fragment_container);
                 if (detailFragment != null) {
 
-                    fragmentManager.beginTransaction().replace(R.id.detail_fragment_container, DetailFragment.newInstance()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.detail_fragment_container, DetailFragment.newInstance(movieList.get(position))).commit();
                 } else {
                     Intent intent = new Intent(view.getContext(), DetailActivity.class);
                     intent.putExtra("MOVIE", movieList.get(position));

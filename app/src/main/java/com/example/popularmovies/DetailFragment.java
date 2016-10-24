@@ -1,6 +1,7 @@
 package com.example.popularmovies;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,8 +25,14 @@ import retrofit2.Response;
 public class DetailFragment extends Fragment {
 
     static List<VideosResponse.Videos> videos;
+    static Movie movie;
 
     public static DetailFragment newInstance() {
+        return new DetailFragment();
+    }
+
+    public static DetailFragment newInstance(Movie curMovie) {
+        movie = curMovie;
         return new DetailFragment();
     }
 
@@ -39,31 +46,40 @@ public class DetailFragment extends Fragment {
         TextView overview = ButterKnife.findById(view, R.id.overview);
         TextView votes = ButterKnife.findById(view, R.id.detail_vote);
         TextView releaseDate = ButterKnife.findById(view, R.id.release_date);
-        Movie movie = getActivity().getIntent().getParcelableExtra("MOVIE");
 
-        Picasso.with(getContext()).load("http://image.tmdb.org/t/p/w185/" + movie.getPosterPath()).fit().into(photo);
-        title.setText(movie.getTitle());
-        overview.setText(movie.getOverview());
-        votes.setText(movie.getVoteAverage());
-        releaseDate.setText(movie.getReleaseDate());
-        RetrofitApiInterface apiService =
-                RetrofitApiClient.getClient().create(RetrofitApiInterface.class);
+        // if fragment is started by intent then receive movie object by intent
+        // else it must  be initialized in newInstance method
+        if (movie == null) {
+            Intent intent = getActivity().getIntent();
+            movie = intent.getParcelableExtra("MOVIE");
+        }
 
-        Call<VideosResponse> call = apiService.getMovieVidz(movie.getId(), ApiKey.getApiKey());
-        call.enqueue(new Callback<VideosResponse>() {
-            @Override
-            public void onResponse(Call<VideosResponse> call, Response<VideosResponse> response) {
-                videos = response.body().getResults();
-                TextView textView = ButterKnife.findById(view, R.id.trailer1);
-                textView.setText(videos.get(0).getName());
-            }
+        if (movie != null) {
+            Picasso.with(getContext()).load("http://image.tmdb.org/t/p/w185/" + movie.getPosterPath()).fit().into(photo);
+            title.setText(movie.getTitle());
+            overview.setText(movie.getOverview());
+            votes.setText(movie.getVoteAverage());
+            releaseDate.setText(movie.getReleaseDate());
+            RetrofitApiInterface apiService =
+                    RetrofitApiClient.getClient().create(RetrofitApiInterface.class);
 
-            @Override
-            public void onFailure(Call<VideosResponse> call, Throwable t) {
-                TextView textView = ButterKnife.findById(view, R.id.trailer1);
-                textView.setText(getString(R.string.no_trailer));
-            }
-        });
+            Call<VideosResponse> call = apiService.getMovieVidz(movie.getId(), ApiKey.getApiKey());
+            call.enqueue(new Callback<VideosResponse>() {
+                @Override
+                public void onResponse(Call<VideosResponse> call, Response<VideosResponse> response) {
+                    videos = response.body().getResults();
+                    TextView textView = ButterKnife.findById(view, R.id.trailer1);
+                    textView.setText(videos.get(0).getName());
+                }
+
+                @Override
+                public void onFailure(Call<VideosResponse> call, Throwable t) {
+                    TextView textView = ButterKnife.findById(view, R.id.trailer1);
+                    textView.setText(getString(R.string.no_trailer));
+                }
+            });
+        }
         return view;
+
     }
 }
