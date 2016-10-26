@@ -34,18 +34,22 @@ class MyUtils {
     static void showMoviesInRecyclerView(View view, final List<Movie> movieList, final FragmentManager fragmentManager) {
 
         RecyclerView.LayoutManager mLayoutManager;
-        MoviesAdapter adapter;
+        final MoviesAdapter adapter;
         RecyclerView recyclerView;
         recyclerView = ButterKnife.findById(view, R.id.recycler_view);
         mLayoutManager = new GridLayoutManager(view.getContext(), view.getResources().getInteger(R.integer.no_of_columns));
         recyclerView.setLayoutManager(mLayoutManager);
-        adapter = new MoviesAdapter(movieList, view.getContext());
+        adapter = new MoviesAdapter(movieList, view.getContext(), new SingleChoiceMode(), recyclerView);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(view.getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
 
+                boolean isCheckedNow = adapter.isChecked(position);
+
+                adapter.onChecked(position, !isCheckedNow);
+                view.setActivated(!isCheckedNow);
                 View detailFragment = ButterKnife.findById(view.getRootView(), R.id.detail_fragment_container);
                 if (detailFragment != null) {
 
