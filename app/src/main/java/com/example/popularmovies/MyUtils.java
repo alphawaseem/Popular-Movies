@@ -18,7 +18,6 @@ import butterknife.ButterKnife;
 
 class MyUtils {
 
-    private static int colSpan = 2;
 
     static boolean isNetworkAvailable(final Context context) {
         return ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null;
@@ -38,7 +37,7 @@ class MyUtils {
         MoviesAdapter adapter;
         RecyclerView recyclerView;
         recyclerView = ButterKnife.findById(view, R.id.recycler_view);
-        mLayoutManager = new GridLayoutManager(view.getContext(), colSpan);
+        mLayoutManager = new GridLayoutManager(view.getContext(), view.getResources().getInteger(R.integer.no_of_columns));
         recyclerView.setLayoutManager(mLayoutManager);
         adapter = new MoviesAdapter(movieList, view.getContext());
         recyclerView.setItemAnimator(new DefaultItemAnimator());

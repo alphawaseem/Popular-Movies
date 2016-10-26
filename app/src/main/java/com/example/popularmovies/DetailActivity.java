@@ -11,13 +11,10 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(android.R.id.content);
 
-        if (detailFragment == null) {
             detailFragment = DetailFragment.newInstance();
             getSupportFragmentManager().beginTransaction().add(android.R.id.content, detailFragment)
                     .commit();
-        }
     }
 
     @Override

@@ -64,4 +64,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             overflow = (ImageView) v.findViewById(R.id.star);
         }
     }
+
+
 }
