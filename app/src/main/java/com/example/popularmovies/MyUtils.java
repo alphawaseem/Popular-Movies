@@ -46,14 +46,16 @@ class MyUtils {
             @Override
             public void onItemClick(View view, int position) {
 
-                boolean isCheckedNow = adapter.isChecked(position);
 
-                adapter.onChecked(position, !isCheckedNow);
-                view.setActivated(!isCheckedNow);
                 View detailFragment = ButterKnife.findById(view.getRootView(), R.id.detail_fragment_container);
                 if (detailFragment != null) {
 
-                    fragmentManager.beginTransaction().replace(R.id.detail_fragment_container, DetailFragment.newInstance(movieList.get(position))).commit();
+                    fragmentManager.beginTransaction().replace(R.id.detail_fragment_container, new DetailFragment().newInstance(movieList.get(position))).commit();
+                    boolean isCheckedNow = adapter.isChecked(position);
+
+                    adapter.onChecked(position, !isCheckedNow);
+                    view.setActivated(!isCheckedNow);
+
                 } else {
                     Intent intent = new Intent(view.getContext(), DetailActivity.class);
                     intent.putExtra("MOVIE", movieList.get(position));

@@ -1,7 +1,6 @@
 package com.example.popularmovies;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -49,11 +48,6 @@ public class DetailFragment extends Fragment {
 
         // if fragment is started by intent then receive movie object by intent
         // else it must  be initialized in newInstance method
-        if (movie == null) {
-            Intent intent = getActivity().getIntent();
-            movie = intent.getParcelableExtra("MOVIE");
-        }
-
         if (movie != null) {
             Picasso.with(getContext()).load("http://image.tmdb.org/t/p/w185/" + movie.getPosterPath()).fit().into(photo);
             title.setText(movie.getTitle());
@@ -84,8 +78,7 @@ public class DetailFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        movie = null;
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }
