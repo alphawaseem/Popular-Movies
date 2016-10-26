@@ -53,8 +53,10 @@ class MyUtils {
                     fragmentManager.beginTransaction().replace(R.id.detail_fragment_container, new DetailFragment().newInstance(movieList.get(position))).commit();
                     boolean isCheckedNow = adapter.isChecked(position);
 
-                    adapter.onChecked(position, !isCheckedNow);
-                    view.setActivated(!isCheckedNow);
+                    if (!isCheckedNow) {
+                        adapter.onChecked(position, !isCheckedNow);
+                        view.setActivated(true);
+                    }
 
                 } else {
                     Intent intent = new Intent(view.getContext(), DetailActivity.class);
