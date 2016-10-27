@@ -40,7 +40,7 @@ class MoviePagerAdapter extends FragmentStatePagerAdapter {
                 title = "Top Rated";
                 break;
             case 2:
-                title = "My Favourite";
+                title = "My Fav";
         }
         return title;
     }
