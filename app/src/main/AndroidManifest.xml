@@ -21,6 +21,11 @@
         <activity android:name=".DetailActivity">
 
         </activity>
+
+        <provider
+            android:name=".data.MoviesProvider"
+            android:authorities="com.example.popularmovies.data.MoviesProvider"
+            android:exported="false" />
     </application>
 
 </manifest>
