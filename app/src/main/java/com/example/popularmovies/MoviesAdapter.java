@@ -22,13 +22,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     private Picasso imageLoader;
     private List<Movie> movies;
-    private Context context;
     private ChoiceMode choiceMode;
     private RecyclerView rv;
 
     public MoviesAdapter(List<Movie> movies, Context context, ChoiceMode choiceMode, RecyclerView rv) {
         this.movies = movies;
-        this.context = context;
         imageLoader = Picasso.with(context);
         this.rv = rv;
         this.choiceMode = choiceMode;
