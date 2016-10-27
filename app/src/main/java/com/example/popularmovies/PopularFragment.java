@@ -33,9 +33,8 @@ public class PopularFragment extends Fragment {
     final static String TAG = PopularFragment.class.getSimpleName();
     // TODO - insert your themoviedb.org API KEY here
     private final static String API_KEY = ApiKey.getApiKey();
-
-    static MoviesAdapter adapter;
     static int mPos = -1;
+    MoviesAdapter adapter;
 
     static PopularFragment newInstance() {
         PopularFragment fragment = new PopularFragment();
@@ -120,16 +119,4 @@ public class PopularFragment extends Fragment {
         }));
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        adapter.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null && adapter != null)
-            adapter.onRestoreInstanceState(savedInstanceState);
-    }
 }

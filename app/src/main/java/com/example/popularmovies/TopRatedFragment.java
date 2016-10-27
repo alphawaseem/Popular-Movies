@@ -34,9 +34,8 @@ public class TopRatedFragment extends Fragment {
     final static String TAG = TopRatedFragment.class.getSimpleName();
     // TODO - insert your themoviedb.org API KEY here
     private final static String API_KEY = ApiKey.getApiKey();
-
-    static MoviesAdapter adapter;
     static int mPos = -1;
+    MoviesAdapter adapter;
 
     static TopRatedFragment newInstance() {
         TopRatedFragment fragment = new TopRatedFragment();
@@ -120,18 +119,4 @@ public class TopRatedFragment extends Fragment {
             }
         }));
     }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        adapter.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null && adapter != null)
-            adapter.onRestoreInstanceState(savedInstanceState);
-    }
-
 }
