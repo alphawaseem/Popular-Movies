@@ -34,8 +34,7 @@ public class MoviesContract {
 
     public static class MoviesEntry implements BaseColumns {
         public static final String MOVIES_TABLE = "movies";
-        public static final String COL_MOVIE_ID = "movie_id";
-        public static final String COL_MOVIE_CATEGORY = "category";
+        public static final String COL_MOVIE_OVERVIEW = "overview";
         public static final String COL_MOVIE_TITLE = "title";
         public static final String COL_MOVIE_ORIGINAL_TITLE = "original_title";
         public static final String COL_MOVIE_POSTER_PATH = "poster_path";
