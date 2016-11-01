@@ -16,11 +16,12 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
     private static String SQL_CREATE_TABLE = "CREATE TABLE " + MoviesContract.MoviesEntry.MOVIES_TABLE +
             " ( " + MoviesContract.MoviesEntry._ID + " INTEGER PRIMARY KEY ," +
             MoviesContract.MoviesEntry.COL_MOVIE_TITLE + " TEXT NOT NULL, " +
-            MoviesContract.MoviesEntry.COL_MOVIE_OVERVIEW + " TEXT NOT NULL, " +
             MoviesContract.MoviesEntry.COL_MOVIE_ORIGINAL_TITLE + " TEXT NOT NULL, " +
+            MoviesContract.MoviesEntry.COL_MOVIE_OVERVIEW + " TEXT NOT NULL, " +
             MoviesContract.MoviesEntry.COL_MOVIE_RELEASE_DATE + " TEXT NOT NULL, " +
             MoviesContract.MoviesEntry.COL_AVG_RATING + " REAL ," +
-            MoviesContract.MoviesEntry.COL_MOVIE_POSTER_PATH + " TEXT NOT NULL " + " )";
+            MoviesContract.MoviesEntry.COL_MOVIE_POSTER_PATH + " TEXT NOT NULL, " +
+            ")";
 
 
     private static String SQL_DELETE_MOVIES_TABLE = "DROP TABLE IF EXISTS " + MoviesContract.MoviesEntry.MOVIES_TABLE;

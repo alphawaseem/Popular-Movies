@@ -2,7 +2,6 @@ package com.example.popularmovies;
 
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,7 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.popularmovies.data.MoviesContract;
+import com.getbase.android.db.cursors.FluentCursor;
+import com.getbase.android.db.provider.ProviderAction;
 import com.squareup.picasso.Picasso;
+
+import org.chalup.microorm.MicroOrm;
 
 import java.util.List;
 
@@ -99,30 +102,20 @@ public class DetailFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_favourite:
-                String[] projection = {MoviesContract.MoviesEntry._ID};
-                Cursor cursor = getContext().getContentResolver().query(MoviesContract.CONTENT_URI, projection, " _id=? ", new String[]{movie.getId().toString()}, null);
+                FluentCursor cursor = ProviderAction.query(MoviesContract.CONTENT_URI).projection(MoviesContract.MoviesEntry._ID)
+                        .where(MoviesContract.MoviesEntry._ID + "=?", movie.getId()).perform(getContext().getContentResolver());
                 if (cursor != null && cursor.moveToFirst()) {
-                    int id = cursor.getInt(cursor.getColumnIndex(projection[0]));
+                    int id = cursor.getInt(MoviesContract.MoviesEntry.INDEX_ID);
                     int movieId = movie.getId();
                     if (id == movieId)
                         Toast.makeText(getContext(), "Movie already exists", Toast.LENGTH_SHORT).show();
 
                     cursor.close();
                 } else {
-                    String[] columns = {MoviesContract.MoviesEntry._ID, MoviesContract.MoviesEntry.COL_MOVIE_TITLE, MoviesContract.MoviesEntry.COL_MOVIE_OVERVIEW,
-                            MoviesContract.MoviesEntry.COL_MOVIE_POSTER_PATH, MoviesContract.MoviesEntry.COL_AVG_RATING,
-                            MoviesContract.MoviesEntry.COL_MOVIE_ORIGINAL_TITLE,
-                            MoviesContract.MoviesEntry.COL_MOVIE_RELEASE_DATE};
-                    ContentValues values = new ContentValues();
-                    values.put(columns[0], movie.getId());
-                    values.put(columns[1], movie.getTitle());
-                    values.put(columns[2], movie.getOverview());
-                    values.put(columns[3], movie.getPosterPath());
-                    values.put(columns[4], movie.getVoteAverage());
-                    values.put(columns[5], movie.getOriginalTitle());
-                    values.put(columns[6], movie.getReleaseDate());
+                    MicroOrm orm = new MicroOrm();
+                    Movie movie = orm.fromCursor(cursor, Movie.class);
+                    ContentValues values = orm.toContentValues(movie);
                     getContext().getContentResolver().insert(MoviesContract.CONTENT_URI, values);
-                    Toast.makeText(getContext(), "Movie added", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

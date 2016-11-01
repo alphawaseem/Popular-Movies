@@ -1,7 +1,6 @@
 package com.example.popularmovies;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     private ChoiceMode choiceMode;
     private RecyclerView rv;
 
-    public MoviesAdapter(List<Movie> movies, Context context, ChoiceMode choiceMode, RecyclerView rv) {
+    MoviesAdapter(List<Movie> movies, Context context, ChoiceMode choiceMode, RecyclerView rv) {
         this.movies = movies;
         imageLoader = Picasso.with(context);
         this.rv = rv;
@@ -74,13 +73,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         return (choiceMode.isChecked(position));
     }
 
-    void onSaveInstanceState(Bundle state) {
-        choiceMode.onSaveInstanceState(state);
-    }
-
-    void onRestoreInstanceState(Bundle state) {
-        choiceMode.onRestoreInstanceState(state);
-    }
 
     @Override
     public void onViewAttachedToWindow(MovieViewHolder holder) {
@@ -91,14 +83,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         }
     }
 
-    public static class MovieViewHolder extends RecyclerView.ViewHolder {
+    static class MovieViewHolder extends RecyclerView.ViewHolder {
         ImageView poster;
         TextView movieTitle;
         TextView voteCount;
         ImageView overflow;
         View view;
 
-        public MovieViewHolder(View v) {
+        MovieViewHolder(View v) {
             super(v);
             poster = (ImageView) v.findViewById(R.id.thumbnail);
             movieTitle = (TextView) v.findViewById(R.id.movie_title);

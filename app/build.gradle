@@ -20,6 +20,9 @@ android {
 }
 repositories {
     mavenCentral()
+    maven {
+        url "https://jitpack.io"
+    }
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -36,5 +39,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.android.support:support-v13:24.2.1'
     compile 'com.facebook.stetho:stetho:1.4.1'
+    compile 'com.github.futuresimple:android-db-commons:v0.13.1'
+    compile 'org.chalup.microorm:microorm:0.6.2'
     testCompile 'junit:junit:4.12'
 }

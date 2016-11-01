@@ -74,4 +74,9 @@ public class MoviesProvider extends ContentProvider {
 
         return id;
     }
+
+    @Override
+    public int bulkInsert(Uri uri, ContentValues[] values) {
+        return super.bulkInsert(uri, values);
+    }
 }

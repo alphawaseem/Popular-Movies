@@ -16,6 +16,7 @@ class MyUtils {
         return ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null;
     }
 
+
     static void hideProgressBar(View view, int id) {
         if (view != null) {
             ProgressBar progressBar = ButterKnife.findById(view, id);

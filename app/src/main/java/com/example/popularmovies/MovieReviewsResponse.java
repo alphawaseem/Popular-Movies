@@ -10,21 +10,32 @@ import java.util.List;
 
 public class MovieReviewsResponse {
     @SerializedName("results")
-    private List<Reviews> results;
+    private List<MovieReviews> results;
 
-    public List<Reviews> getResults() {
+    public List<MovieReviews> getResults() {
         return results;
     }
 
-    public void setResults(List<Reviews> results) {
+    public void setResults(List<MovieReviews> results) {
         this.results = results;
     }
 
-    public class Reviews {
+    public class MovieReviews {
         @SerializedName("author")
         private String author;
         @SerializedName("id")
         private String id;
+        @SerializedName("content")
+        private String content;
+
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
 
         public String getAuthor() {
             return author;

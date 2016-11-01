@@ -39,6 +39,16 @@ public class MoviesContract {
         public static final String COL_MOVIE_ORIGINAL_TITLE = "original_title";
         public static final String COL_MOVIE_POSTER_PATH = "poster_path";
         public static final String COL_MOVIE_RELEASE_DATE = "release_date";
-        public static final String COL_AVG_RATING = "avg_ratings";
+        public static final String COL_VOTE_AVG = "vote_avg";
+
+        public static final int INDEX_ID = 0;
+        public static final int INDEX_TITLE = 1;
+        public static final int INDEX_ORIGINAL_TITLE = 2;
+        public static final int INDEX_OVERVIEW = 3;
+        public static final int INDEX_RELEASE_DATE = 4;
+        public static final int INDEX_VOTE_AVG = 5;
+        public static final int INDEX_POSTER_PATH = 6;
     }
+
+
 }

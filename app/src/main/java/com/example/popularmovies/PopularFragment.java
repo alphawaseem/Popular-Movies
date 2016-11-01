@@ -2,6 +2,7 @@ package com.example.popularmovies;
 
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.popularmovies.Adapters.MyMoviesAdapter;
 
 import java.util.List;
 
@@ -34,7 +37,7 @@ public class PopularFragment extends Fragment {
     // TODO - insert your themoviedb.org API KEY here
     private final static String API_KEY = ApiKey.getApiKey();
     static int mPos = -1;
-    MoviesAdapter adapter;
+    MyMoviesAdapter adapter;
 
     static PopularFragment newInstance() {
         PopularFragment fragment = new PopularFragment();
@@ -63,7 +66,10 @@ public class PopularFragment extends Fragment {
                 public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
 
                     hideProgressBar(rootView, R.id.progress_bar);
-                    showMoviesInRecyclerView(rootView, response.body().getResults(), getActivity().getSupportFragmentManager());
+                    List<Movie> movies = response.body().getResults();
+                    //saveMoviesToDd(movies);
+                    Cursor cursor = null;
+                    showMoviesInRecyclerView(rootView, cursor, getActivity().getSupportFragmentManager());
                 }
 
                 @Override
@@ -79,14 +85,15 @@ public class PopularFragment extends Fragment {
     }
 
 
-    void showMoviesInRecyclerView(View view, final List<Movie> movieList, final FragmentManager fragmentManager) {
+    void showMoviesInRecyclerView(View view, final Cursor cursor, final FragmentManager fragmentManager) {
 
         RecyclerView.LayoutManager mLayoutManager;
         RecyclerView recyclerView;
         recyclerView = ButterKnife.findById(view, R.id.recycler_view);
         mLayoutManager = new GridLayoutManager(view.getContext(), view.getResources().getInteger(R.integer.no_of_columns));
         recyclerView.setLayoutManager(mLayoutManager);
-        adapter = new MoviesAdapter(movieList, view.getContext(), new SingleChoiceMode(), recyclerView);
+
+        adapter = new MyMoviesAdapter(cursor, view.getContext(), new SingleChoiceMode(), recyclerView);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         if (mPos != -1) {
@@ -108,11 +115,11 @@ public class PopularFragment extends Fragment {
                 }
                 if (detailFragment != null) {
 
-                    fragmentManager.beginTransaction().replace(R.id.detail_fragment_container, DetailFragment.newInstance(movieList.get(position))).commit();
+                    fragmentManager.beginTransaction().replace(R.id.detail_fragment_container, DetailFragment.newInstance(Movie.getFromCursor(cursor))).commit();
 
                 } else {
                     Intent intent = new Intent(view.getContext(), DetailActivity.class);
-                    intent.putExtra("MOVIE", movieList.get(position));
+                    intent.putExtra("MOVIE", Movie.getFromCursor(cursor));
                     view.getContext().startActivity(intent);
                 }
             }
