@@ -1,4 +1,4 @@
-package com.example.popularmovies.Adapters;
+package com.example.popularmovies.recyclercursor;
 
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;

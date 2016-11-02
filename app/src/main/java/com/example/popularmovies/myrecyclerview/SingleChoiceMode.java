@@ -1,10 +1,8 @@
-package com.example.popularmovies;
+package com.example.popularmovies.myrecyclerview;
 
 /**
  * Created by waseem on 10/26/16.
  */
-
-import android.os.Bundle;
 
 public class SingleChoiceMode implements ChoiceMode {
     private static final String STATE_CHECKED = "checkedPosition";
@@ -32,15 +30,5 @@ public class SingleChoiceMode implements ChoiceMode {
     @Override
     public boolean isChecked(int position) {
         return (checkedPosition == position);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle state) {
-        state.putInt(STATE_CHECKED, checkedPosition);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle state) {
-        checkedPosition = state.getInt(STATE_CHECKED, -1);
     }
 }

@@ -13,6 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.popularmovies.models.Movie;
+import com.example.popularmovies.models.MoviesResponse;
+import com.example.popularmovies.myrecyclerview.MoviesAdapter;
+import com.example.popularmovies.myrecyclerview.RecyclerItemClickListener;
+import com.example.popularmovies.myrecyclerview.SingleChoiceMode;
+import com.example.popularmovies.retrofit.RetrofitApiClient;
+import com.example.popularmovies.retrofit.RetrofitApiInterface;
+
 import java.util.List;
 
 import butterknife.ButterKnife;

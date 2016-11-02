@@ -1,4 +1,4 @@
-package com.example.popularmovies.Adapters;
+package com.example.popularmovies.recyclercursor;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,22 +9,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.popularmovies.ChoiceMode;
-import com.example.popularmovies.Movie;
 import com.example.popularmovies.R;
+import com.example.popularmovies.models.Movie;
+import com.example.popularmovies.myrecyclerview.ChoiceMode;
 import com.squareup.picasso.Picasso;
 
 /**
  * Created by peace on 1/11/16.
  */
 
-public class MyMoviesAdapter extends RecyclerCursorAdapter<MyMoviesAdapter.MyMovieHolder> {
+public class CursorMovieAdapter extends RecyclerCursorAdapter<CursorMovieAdapter.MyMovieHolder> {
 
     private ChoiceMode choiceMode;
     private RecyclerView rv;
     private Context mContext;
 
-    public MyMoviesAdapter(Cursor c, Context context, ChoiceMode choiceMode, RecyclerView rv) {
+    public CursorMovieAdapter(Cursor c, Context context, ChoiceMode choiceMode, RecyclerView rv) {
         super(c);
         this.rv = rv;
         this.choiceMode = choiceMode;
@@ -44,7 +44,7 @@ public class MyMoviesAdapter extends RecyclerCursorAdapter<MyMoviesAdapter.MyMov
     @Override
     public MyMovieHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_card, parent, false);
-        return new MyMoviesAdapter.MyMovieHolder(view);
+        return new CursorMovieAdapter.MyMovieHolder(view);
     }
 
     public void onChecked(int position, boolean isChecked) {

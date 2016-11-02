@@ -1,4 +1,4 @@
-package com.example.popularmovies;
+package com.example.popularmovies.myrecyclerview;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.popularmovies.R;
+import com.example.popularmovies.models.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     private ChoiceMode choiceMode;
     private RecyclerView rv;
 
-    MoviesAdapter(List<Movie> movies, Context context, ChoiceMode choiceMode, RecyclerView rv) {
+    public MoviesAdapter(List<Movie> movies, Context context, ChoiceMode choiceMode, RecyclerView rv) {
         this.movies = movies;
         imageLoader = Picasso.with(context);
         this.rv = rv;
@@ -52,7 +54,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         return movies.size();
     }
 
-    void onChecked(int position, boolean isChecked) {
+    public void onChecked(int position, boolean isChecked) {
         if (choiceMode.isSingleChoice()) {
             int checked = choiceMode.getCheckedPosition();
 
@@ -69,7 +71,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         choiceMode.setChecked(position, isChecked);
     }
 
-    boolean isChecked(int position) {
+    public boolean isChecked(int position) {
         return (choiceMode.isChecked(position));
     }
 

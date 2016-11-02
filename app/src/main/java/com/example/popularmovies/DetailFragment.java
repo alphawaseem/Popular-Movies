@@ -15,6 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.popularmovies.data.MoviesContract;
+import com.example.popularmovies.models.Movie;
+import com.example.popularmovies.models.VideosResponse;
+import com.example.popularmovies.retrofit.RetrofitApiClient;
+import com.example.popularmovies.retrofit.RetrofitApiInterface;
 import com.getbase.android.db.cursors.FluentCursor;
 import com.getbase.android.db.provider.ProviderAction;
 import com.squareup.picasso.Picasso;

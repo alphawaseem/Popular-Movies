@@ -15,8 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.popularmovies.Adapters.MyMoviesAdapter;
 import com.example.popularmovies.data.MoviesContract;
+import com.example.popularmovies.models.Movie;
+import com.example.popularmovies.myrecyclerview.RecyclerItemClickListener;
+import com.example.popularmovies.myrecyclerview.SingleChoiceMode;
+import com.example.popularmovies.recyclercursor.CursorMovieAdapter;
 import com.getbase.android.db.loaders.CursorLoaderBuilder;
 
 import butterknife.ButterKnife;
@@ -33,7 +36,7 @@ public class FavFragment extends Fragment implements LoaderManager.LoaderCallbac
     // TODO - insert your themoviedb.org API KEY here
     private final static String API_KEY = ApiKey.getApiKey();
     static int mPos = -1;
-    MyMoviesAdapter adapter;
+    CursorMovieAdapter adapter;
 
     static FavFragment newInstance() {
         FavFragment fragment = new FavFragment();
@@ -63,7 +66,7 @@ public class FavFragment extends Fragment implements LoaderManager.LoaderCallbac
         mLayoutManager = new GridLayoutManager(view.getContext(), view.getResources().getInteger(R.integer.no_of_columns));
         recyclerView.setLayoutManager(mLayoutManager);
 
-        adapter = new MyMoviesAdapter(cursor, view.getContext(), new SingleChoiceMode(), recyclerView);
+        adapter = new CursorMovieAdapter(cursor, view.getContext(), new SingleChoiceMode(), recyclerView);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         if (mPos != -1) {

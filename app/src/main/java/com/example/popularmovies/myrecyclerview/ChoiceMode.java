@@ -1,10 +1,8 @@
-package com.example.popularmovies;
+package com.example.popularmovies.myrecyclerview;
 
 /**
  * Created by waseem on 10/26/16.
  */
-
-import android.os.Bundle;
 
 public interface ChoiceMode {
     boolean isSingleChoice();
@@ -15,7 +13,4 @@ public interface ChoiceMode {
 
     boolean isChecked(int position);
 
-    void onSaveInstanceState(Bundle state);
-
-    void onRestoreInstanceState(Bundle state);
 }

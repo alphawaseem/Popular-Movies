@@ -1,4 +1,8 @@
-package com.example.popularmovies;
+package com.example.popularmovies.retrofit;
+
+import com.example.popularmovies.models.MovieReviewsResponse;
+import com.example.popularmovies.models.MoviesResponse;
+import com.example.popularmovies.models.VideosResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

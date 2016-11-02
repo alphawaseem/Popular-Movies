@@ -1,4 +1,4 @@
-package com.example.popularmovies;
+package com.example.popularmovies.myrecyclerview;
 
 /**
  * Created by peace on 7/10/16.
