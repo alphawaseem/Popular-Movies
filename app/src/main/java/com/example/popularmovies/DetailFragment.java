@@ -113,9 +113,9 @@ public class DetailFragment extends Fragment {
                     cursor.close();
                 } else {
                     MicroOrm orm = new MicroOrm();
-                    Movie movie = orm.fromCursor(cursor, Movie.class);
                     ContentValues values = orm.toContentValues(movie);
                     getContext().getContentResolver().insert(MoviesContract.CONTENT_URI, values);
+                    getContext().getContentResolver().notifyChange(MoviesContract.CONTENT_URI, null);
                 }
                 break;
         }

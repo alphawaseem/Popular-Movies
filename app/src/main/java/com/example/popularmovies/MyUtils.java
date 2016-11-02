@@ -26,14 +26,8 @@ class MyUtils {
     }
 
 
-
-    static void showNoMoviesFoundMessage(View view) {
+    static void showFailureMessage(View view, String message) {
         TextView failed = ButterKnife.findById(view, R.id.failed_msg);
-        failed.setText(R.string.no_movies);
-    }
-
-    static void showNoInternetMessage(View view) {
-        TextView failed = ButterKnife.findById(view, R.id.failed_msg);
-        failed.setText(R.string.no_internet);
+        failed.setText(message);
     }
 }

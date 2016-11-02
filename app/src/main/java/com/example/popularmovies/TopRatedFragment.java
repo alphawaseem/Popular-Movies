@@ -22,8 +22,7 @@ import retrofit2.Response;
 
 import static com.example.popularmovies.MyUtils.hideProgressBar;
 import static com.example.popularmovies.MyUtils.isNetworkAvailable;
-import static com.example.popularmovies.MyUtils.showNoInternetMessage;
-import static com.example.popularmovies.MyUtils.showNoMoviesFoundMessage;
+import static com.example.popularmovies.MyUtils.showFailureMessage;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,7 +52,7 @@ public class TopRatedFragment extends Fragment {
         if (!isNetworkAvailable(getContext())) {
 
             hideProgressBar(rootView, R.id.progress_bar);
-            showNoInternetMessage(rootView);
+            showFailureMessage(rootView, getString(R.string.no_internet));
 
         } else {
             RetrofitApiInterface apiService =
@@ -72,7 +71,7 @@ public class TopRatedFragment extends Fragment {
                 public void onFailure(Call<MoviesResponse> call, Throwable t) {
                     // Log error here since request failed
                     hideProgressBar(rootView, R.id.progress_bar);
-                    showNoMoviesFoundMessage(rootView);
+                    showFailureMessage(rootView, getString(R.string.no_movies));
                     Log.e(TAG, t.toString());
                 }
             });

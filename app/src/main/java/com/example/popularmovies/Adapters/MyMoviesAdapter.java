@@ -85,9 +85,12 @@ public class MyMoviesAdapter extends RecyclerCursorAdapter<MyMoviesAdapter.MyMov
         TextView voteCount;
         View view;
 
-        MyMovieHolder(View itemView) {
-            super(itemView);
-            view = itemView;
+        MyMovieHolder(View v) {
+            super(v);
+            poster = (ImageView) v.findViewById(R.id.thumbnail);
+            movieTitle = (TextView) v.findViewById(R.id.movie_title);
+            voteCount = (TextView) v.findViewById(R.id.vote_count);
+            view = v;
         }
 
         void bindItem(Movie movie, Context context, int position) {
