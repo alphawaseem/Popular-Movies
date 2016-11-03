@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -58,7 +57,7 @@ public class FavFragment extends Fragment implements LoaderManager.LoaderCallbac
         getActivity().getSupportLoaderManager().initLoader(0, null, this);
     }
 
-    void showMoviesInRecyclerView(View view, final Cursor cursor, final FragmentManager fragmentManager) {
+    void showMoviesInRecyclerView(View view, final Cursor cursor) {
 
         RecyclerView.LayoutManager mLayoutManager;
         RecyclerView recyclerView;
@@ -88,7 +87,7 @@ public class FavFragment extends Fragment implements LoaderManager.LoaderCallbac
                 }
                 if (detailFragment != null) {
 
-                    fragmentManager.beginTransaction().replace(R.id.detail_fragment_container, DetailFragment.newInstance(Movie.getFromCursor(cursor))).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment_container, DetailFragment.newInstance(Movie.getFromCursor(cursor))).commit();
 
                 } else {
                     Intent intent = new Intent(view.getContext(), DetailActivity.class);
@@ -108,13 +107,15 @@ public class FavFragment extends Fragment implements LoaderManager.LoaderCallbac
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        if (cursor == null) {
+        if (cursor == null || cursor.getCount() < 1) {
 
             hideProgressBar(getView(), R.id.progress_bar);
             showFailureMessage(getView(), getString(R.string.no_fav_movies));
         } else {
             hideProgressBar(getView(), R.id.progress_bar);
-            showMoviesInRecyclerView(getView(), cursor, getActivity().getSupportFragmentManager());
+
+            if (getActivity() != null)
+                showMoviesInRecyclerView(getView(), cursor);
         }
     }
 
