@@ -82,5 +82,29 @@ public class MoviesContract {
         public static final int INDEX_POSTER_PATH = 6;
     }
 
+    public static class ReviewsEntry implements BaseColumns {
+        public static final String REVIEWS_TABLE = "reviews";
+        public static final String COL_AUTHOR = "author";
+        public static final String COL_REVIEW = "review";
+        public static final String COL_MOVIE_ID = "movie_id";
+
+        public static final int INDEX_ID = 0;
+        public static final int INDEX_AUTHOR = 1;
+        public static final int INDEX_REVIEW = 2;
+        public static final int INDEX_MOVIE_ID = 3;
+    }
+
+    public static class TrailerEntry implements BaseColumns {
+        public static final String TRAILER_TABLE = "trailers";
+        public static final String COL_KEY = "key";
+        public static final String COL_NAME = "name";
+        public static final String COL_MOVIE_ID = "movie_id";
+
+        public static final int INDEX_ID = 0;
+        public static final int INDEX_KEY = 1;
+        public static final int INDEX_NAME = 2;
+        public static final int INDEX_MOVIE_ID = 3;
+    }
+
 
 }
