@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
-import static com.example.popularmovies.data.MoviesContract.isCollectionUri;
 
 /**
  * Created by peace on 27/10/16.
@@ -40,10 +39,7 @@ public class MoviesProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        if (isCollectionUri(uri)) {
-            return ("vnd.popularmovies.cursor.dir/movie");
-        }
-        return ("vnd.popularmovies.cursor.item/movie");
+        return MoviesContract.getType(uri);
     }
 
     @Override
@@ -52,7 +48,7 @@ public class MoviesProvider extends ContentProvider {
         long rowID = db.getWritableDatabase().insert(MoviesContract.MoviesEntry.MOVIES_TABLE, null, values);
 
         if (rowID > 0) {
-            Uri rowUri = ContentUris.withAppendedId(MoviesContract.CONTENT_URI, rowID);
+            Uri rowUri = ContentUris.withAppendedId(MoviesContract.MOVIES_URI, rowID);
             getContext().getContentResolver().notifyChange(rowUri, null);
             return rowUri;
         }

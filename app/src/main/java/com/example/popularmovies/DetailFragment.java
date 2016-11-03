@@ -2,6 +2,7 @@ package com.example.popularmovies;
 
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -99,30 +100,40 @@ public class DetailFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.movie_menu, menu);
+        FluentCursor cursor = ProviderAction.query(MoviesContract.MOVIES_URI).projection(MoviesContract.MoviesEntry._ID)
+                .where(MoviesContract.MoviesEntry._ID + "=?", movie.getId()).perform(getContext().getContentResolver());
+        if (!movieIdInCursor(movie.getId(), cursor))
+            inflater.inflate(R.menu.add_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        FluentCursor cursor = ProviderAction.query(MoviesContract.MOVIES_URI).projection(MoviesContract.MoviesEntry._ID)
+                .where(MoviesContract.MoviesEntry._ID + "=?", movie.getId()).perform(getContext().getContentResolver());
         switch (item.getItemId()) {
             case R.id.add_favourite:
-                FluentCursor cursor = ProviderAction.query(MoviesContract.CONTENT_URI).projection(MoviesContract.MoviesEntry._ID)
-                        .where(MoviesContract.MoviesEntry._ID + "=?", movie.getId()).perform(getContext().getContentResolver());
-                if (cursor != null && cursor.moveToFirst()) {
-                    int id = cursor.getInt(MoviesContract.MoviesEntry.INDEX_ID);
-                    int movieId = movie.getId();
-                    if (id == movieId)
-                        Toast.makeText(getContext(), "Movie already exists", Toast.LENGTH_SHORT).show();
-
-                    cursor.close();
+                if (movieIdInCursor(movie.getId(), cursor)) {
+                    Toast.makeText(getContext(), "Movie already exists", Toast.LENGTH_SHORT).show();
                 } else {
                     MicroOrm orm = new MicroOrm();
                     ContentValues values = orm.toContentValues(movie);
-                    getContext().getContentResolver().insert(MoviesContract.CONTENT_URI, values);
-                    getContext().getContentResolver().notifyChange(MoviesContract.CONTENT_URI, null);
+                    getContext().getContentResolver().insert(MoviesContract.MOVIES_URI, values);
+                    getContext().getContentResolver().notifyChange(MoviesContract.MOVIES_URI, null);
+                    Toast.makeText(getContext(), "Movie added to fav", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean movieIdInCursor(int movieId, Cursor cursor) {
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            int id = cursor.getInt(MoviesContract.MoviesEntry.INDEX_ID);
+            if (id == movieId) {
+                return true;
+            }
+        }
+        return false;
     }
 }

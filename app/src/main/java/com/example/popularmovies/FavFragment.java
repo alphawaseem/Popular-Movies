@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,7 +21,6 @@ import com.example.popularmovies.models.Movie;
 import com.example.popularmovies.myrecyclerview.RecyclerItemClickListener;
 import com.example.popularmovies.myrecyclerview.SingleChoiceMode;
 import com.example.popularmovies.recyclercursor.CursorMovieAdapter;
-import com.getbase.android.db.loaders.CursorLoaderBuilder;
 
 import butterknife.ButterKnife;
 
@@ -101,7 +101,9 @@ public class FavFragment extends Fragment implements LoaderManager.LoaderCallbac
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return CursorLoaderBuilder.forUri(MoviesContract.CONTENT_URI).orderBy(MoviesContract.MoviesEntry.COL_MOVIE_RELEASE_DATE + " DESC ").build(getContext());
+        CursorLoader loader = new CursorLoader(getContext(), MoviesContract.MOVIES_URI, null,
+                null, null, null);
+        return loader;
     }
 
     @Override
