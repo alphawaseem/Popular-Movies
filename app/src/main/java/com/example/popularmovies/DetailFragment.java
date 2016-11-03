@@ -102,7 +102,7 @@ public class DetailFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         FluentCursor cursor = ProviderAction.query(MoviesContract.MOVIES_URI).projection(MoviesContract.MoviesEntry._ID)
                 .where(MoviesContract.MoviesEntry._ID + "=?", movie.getId()).perform(getContext().getContentResolver());
-        if (!movieIdInCursor(movie.getId(), cursor))
+        if (!isMovieIdInCursor(movie.getId(), cursor))
             inflater.inflate(R.menu.add_menu, menu);
     }
 
@@ -112,7 +112,7 @@ public class DetailFragment extends Fragment {
                 .where(MoviesContract.MoviesEntry._ID + "=?", movie.getId()).perform(getContext().getContentResolver());
         switch (item.getItemId()) {
             case R.id.add_favourite:
-                if (movieIdInCursor(movie.getId(), cursor)) {
+                if (isMovieIdInCursor(movie.getId(), cursor)) {
                     Toast.makeText(getContext(), "Movie already exists", Toast.LENGTH_SHORT).show();
                 } else {
                     MicroOrm orm = new MicroOrm();
@@ -126,7 +126,7 @@ public class DetailFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean movieIdInCursor(int movieId, Cursor cursor) {
+    public boolean isMovieIdInCursor(int movieId, Cursor cursor) {
         if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
             int id = cursor.getInt(MoviesContract.MoviesEntry.INDEX_ID);
