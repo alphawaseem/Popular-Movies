@@ -4,6 +4,7 @@ package com.example.popularmovies;
 import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,6 +46,8 @@ public class DetailFragment extends Fragment {
     static List<VideosResponse.Video> trailers;
     static List<MovieReviewsResponse.MovieReviews> reviews;
     static Movie movie;
+    ReviewAdapter reviewAdapter;
+    TrailerAdapter trailerAdapter;
     View rootView;
     ImageView poster;
     TextView title;
@@ -66,29 +69,39 @@ public class DetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.detail_movie_card, container, false);
 
+        return rootView;
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         findViews(rootView);
         updateMovieInfo();
         getTrailers();
         getReviews();
-        return rootView;
-
     }
 
     /**
      *
      */
     private void updateReviewsInfo() {
-        ReviewAdapter adapter = new ReviewAdapter(getContext(), reviews);
-        reviewList.setAdapter(adapter);
-
+        if (getActivity() != null) {
+            if (reviewAdapter == null) {
+                reviewAdapter = new ReviewAdapter(getActivity(), reviews);
+                reviewList.setAdapter(reviewAdapter);
+            }
+        }
     }
 
     private void updateTrailersInfo() {
 
-        TrailerAdapter adapter = new TrailerAdapter(getContext(), trailers);
-        trailerList.setAdapter(adapter);
-
-
+        if (getActivity() != null) {
+            if (trailerAdapter == null) {
+                trailerAdapter = new TrailerAdapter(getActivity(), trailers);
+                trailerList.setAdapter(trailerAdapter);
+            }
+        }
     }
 
 
@@ -107,7 +120,7 @@ public class DetailFragment extends Fragment {
 
             @Override
             public void onFailure(Call<MovieReviewsResponse> call, Throwable t) {
-
+                showNoReviewsMessage();
             }
         });
     }

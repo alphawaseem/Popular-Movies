@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
         android:textStyle="normal|bold"
-        tools:text="This movie is great.\n Enoyed a lot" />
+        tools:text="This movie is great.\n Enjoyed a lot" />
 
     <TextView
         android:id="@+id/author"
