@@ -11,17 +11,17 @@ import java.util.List;
 public class VideosResponse {
 
     @SerializedName("results")
-    private List<Videos> results;
+    private List<Video> results;
 
-    public List<Videos> getResults() {
+    public List<Video> getResults() {
         return results;
     }
 
-    public void setResults(List<Videos> results) {
+    public void setResults(List<Video> results) {
         this.results = results;
     }
 
-    public class Videos {
+    public class Video {
         @SerializedName("key")
         private String key;
         @SerializedName("name")

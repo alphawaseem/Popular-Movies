@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center">
+    android:orientation="vertical">
 
-        <ImageView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
             android:id="@+id/detail_poster"
             android:layout_width="150dp"
             android:layout_height="200dp"
@@ -93,30 +98,50 @@
             android:textSize="18sp"
             tools:text=" overiew of movie goes here, this can get very long" />
 
-        <ListView
-            android:id="@+id/trailer_placeholder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/overview"
-            android:layout_marginTop="11dp"
-            android:orientation="vertical">
 
-        </ListView>
+            <TextView
+                android:id="@+id/trailer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/overview"
+                android:layout_marginTop="54dp"
+                android:text="@string/trailers"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="normal|bold" />
 
-        <ListView
+            <ListView
+                android:id="@+id/trailer_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentStart="false"
+                android:layout_below="@+id/trailer"
+                android:layout_marginTop="11dp"
+                android:orientation="vertical"></ListView>
+
+            <TextView
+                android:id="@+id/reviewView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/trailer_placeholder"
+                android:text="@string/reviews"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="normal|bold" />
+
+            <ListView
             android:id="@+id/reviews_placeholder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/trailer_placeholder"
-            android:layout_marginBottom="23dp"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentStart="false"
+                android:layout_below="@id/reviewView"
             android:orientation="vertical">
 
         </ListView>
 
-    </RelativeLayout>
-</android.support.v4.widget.NestedScrollView>
+
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

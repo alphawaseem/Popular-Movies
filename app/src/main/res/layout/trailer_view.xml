@@ -22,6 +22,7 @@
         tools:text="Trailer 1" />
 
     <ImageButton
+        android:id="@+id/play_trailer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_horizontal_margin"

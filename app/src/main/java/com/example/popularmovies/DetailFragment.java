@@ -1,17 +1,23 @@
 package com.example.popularmovies;
 
 
-import android.database.Cursor;
+import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.popularmovies.adapters.ReviewAdapter;
+import com.example.popularmovies.adapters.TrailerAdapter;
 import com.example.popularmovies.data.MoviesContract;
 import com.example.popularmovies.models.Movie;
 import com.example.popularmovies.models.MovieReviewsResponse;
@@ -21,6 +27,8 @@ import com.example.popularmovies.retrofit.RetrofitApiInterface;
 import com.getbase.android.db.cursors.FluentCursor;
 import com.getbase.android.db.provider.ProviderAction;
 import com.squareup.picasso.Picasso;
+
+import org.chalup.microorm.MicroOrm;
 
 import java.util.List;
 
@@ -34,7 +42,7 @@ import retrofit2.Response;
  */
 public class DetailFragment extends Fragment {
 
-    static List<VideosResponse.Videos> trailers;
+    static List<VideosResponse.Video> trailers;
     static List<MovieReviewsResponse.MovieReviews> reviews;
     static Movie movie;
     View rootView;
@@ -43,6 +51,8 @@ public class DetailFragment extends Fragment {
     TextView overview;
     TextView releaseDate;
     TextView votes;
+    ListView trailerList;
+    ListView reviewList;
     RetrofitApiInterface apiService =
             RetrofitApiClient.getClient().create(RetrofitApiInterface.class);
 
@@ -60,7 +70,6 @@ public class DetailFragment extends Fragment {
         updateMovieInfo();
         getTrailers();
         getReviews();
-
         return rootView;
 
     }
@@ -69,10 +78,16 @@ public class DetailFragment extends Fragment {
      *
      */
     private void updateReviewsInfo() {
+        ReviewAdapter adapter = new ReviewAdapter(getContext(), reviews);
+        reviewList.setAdapter(adapter);
 
     }
 
     private void updateTrailersInfo() {
+
+        TrailerAdapter adapter = new TrailerAdapter(getContext(), trailers);
+        trailerList.setAdapter(adapter);
+
 
     }
 
@@ -104,7 +119,7 @@ public class DetailFragment extends Fragment {
 
             @Override
             public void onFailure(Call<VideosResponse> call, Throwable t) {
-                //showTrailerNotFound(rootView);
+
             }
         });
     }
@@ -134,9 +149,36 @@ public class DetailFragment extends Fragment {
         overview = ButterKnife.findById(view, R.id.overview);
         releaseDate = ButterKnife.findById(view, R.id.release_date);
         votes = ButterKnife.findById(view, R.id.detail_vote);
+        trailerList = ButterKnife.findById(rootView, R.id.trailer_placeholder);
+        reviewList = ButterKnife.findById(rootView, R.id.reviews_placeholder);
     }
 
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean isTrue = super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.add_favourite:
+                addMovieToDB(movie);
+                isTrue = true;
+                break;
+        }
+        return isTrue;
+    }
+
+    private long addMovieToDB(Movie movie) {
+        long id = 0;
+        if (!isMovieInDB(movie.getId())) {
+            MicroOrm orm = new MicroOrm();
+            ContentValues values = orm.toContentValues(movie);
+            Uri uri = ProviderAction.insert(MoviesContract.MOVIES_URI).values(values).perform(getActivity().getContentResolver());
+            id = Long.parseLong(uri.getLastPathSegment());
+            Toast.makeText(getContext(), "Movie added with ID:" + id, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Already Present", Toast.LENGTH_SHORT).show();
+        }
+        return id;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -146,13 +188,18 @@ public class DetailFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        FluentCursor cursor = ProviderAction.query(MoviesContract.MOVIES_URI).projection(MoviesContract.MoviesEntry._ID)
-                .where(MoviesContract.MoviesEntry._ID + "=?", movie.getId()).perform(getContext().getContentResolver());
-        if (!isMovieIdInCursor(movie.getId(), cursor))
-            inflater.inflate(R.menu.add_menu, menu);
+        inflater.inflate(R.menu.add_menu, menu);
     }
 
-    public boolean isMovieIdInCursor(int movieId, Cursor cursor) {
+    /**
+     * Search movie in database by id and return true if present else false
+     *
+     * @param movieId id of the movie
+     * @return true if movie in db else false
+     */
+    public boolean isMovieInDB(int movieId) {
+        FluentCursor cursor = ProviderAction.query(MoviesContract.MOVIES_URI).projection(MoviesContract.MoviesEntry._ID)
+                .where(MoviesContract.MoviesEntry._ID + "=?", movie.getId()).perform(getContext().getContentResolver());
         if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
             int id = cursor.getInt(MoviesContract.MoviesEntry.INDEX_ID);
@@ -162,4 +209,5 @@ public class DetailFragment extends Fragment {
         }
         return false;
     }
+
 }
