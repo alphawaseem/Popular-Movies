@@ -1,6 +1,9 @@
 package com.example.popularmovies.adapters;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.popularmovies.R;
 import com.example.popularmovies.models.VideosResponse;
@@ -43,7 +45,15 @@ public class TrailerAdapter extends ArrayAdapter<VideosResponse.Video> {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, video.getKey(), Toast.LENGTH_SHORT).show();
+                String id = video.getKey();
+                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+                Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://www.youtube.com/watch?v=" + id));
+                try {
+                    context.startActivity(appIntent);
+                } catch (ActivityNotFoundException ex) {
+                    context.startActivity(webIntent);
+                }
             }
         });
         textView.setText(video.getName());
