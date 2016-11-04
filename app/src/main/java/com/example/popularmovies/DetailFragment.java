@@ -98,7 +98,11 @@ public class DetailFragment extends Fragment {
             @Override
             public void onResponse(Call<MovieReviewsResponse> call, Response<MovieReviewsResponse> response) {
                 reviews = response.body().getResults();
-                updateReviewsInfo();
+                if (reviews.size() < 1) {
+                    showNoReviewsMessage();
+                } else {
+                    updateReviewsInfo();
+                }
             }
 
             @Override
@@ -114,12 +118,16 @@ public class DetailFragment extends Fragment {
             @Override
             public void onResponse(Call<VideosResponse> call, Response<VideosResponse> response) {
                 trailers = response.body().getResults();
-                updateTrailersInfo();
+                if (trailers.size() < 1) {
+                    showNoTrailersMessage();
+                } else {
+                    updateTrailersInfo();
+                }
             }
 
             @Override
             public void onFailure(Call<VideosResponse> call, Throwable t) {
-
+                showNoTrailersMessage();
             }
         });
     }
@@ -208,6 +216,16 @@ public class DetailFragment extends Fragment {
             }
         }
         return false;
+    }
+
+    private void showNoTrailersMessage() {
+        TextView trailer = ButterKnife.findById(rootView, R.id.trailer);
+        trailer.setText(R.string.no_trailers_found);
+    }
+
+    private void showNoReviewsMessage() {
+        TextView review = ButterKnife.findById(rootView, R.id.reviewView);
+        review.setText(R.string.no_reviews_found);
     }
 
 }
