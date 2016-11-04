@@ -28,7 +28,10 @@
             android:layout_toEndOf="@+id/detail_poster"
             android:layout_toRightOf="@+id/detail_poster"
             android:padding="3dp"
+            android:textAlignment="center"
+            android:textAllCaps="false"
             android:textSize="22sp"
+            android:textStyle="normal|bold"
             tools:text="Captain America : Civil War" />
 
         <GridLayout
@@ -57,6 +60,7 @@
                 android:padding="3dp"
                 android:paddingLeft="10dp"
                 android:paddingStart="10dp"
+                android:textAllCaps="false"
                 android:textSize="16sp"
                 tools:text="8.7" />
 
@@ -93,6 +97,10 @@
             android:id="@+id/trailer_placeholder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/overview"
+            android:layout_marginTop="11dp"
             android:orientation="vertical">
 
         </ListView>
@@ -101,6 +109,11 @@
             android:id="@+id/reviews_placeholder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/trailer_placeholder"
+            android:layout_marginBottom="23dp"
             android:orientation="vertical">
 
         </ListView>

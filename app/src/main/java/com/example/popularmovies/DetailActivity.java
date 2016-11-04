@@ -17,6 +17,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Movie movie = intent.getParcelableExtra("MOVIE");
+        setTitle(movie.getTitle());
         detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(android.R.id.content);
         if (detailFragment == null) {
 
